@@ -1,0 +1,77 @@
+<!-- Welcome to my space site! I hope you like it. If you find a typo, it's totally on purpose :) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wonders of Space</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/ffffff/planet.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>The Wonders of <span class="highlight">Space</span></h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="planets.html">Planets</a>
+            <a href="stars.html">Stars</a>
+        </nav>
+    </header>
+    <main>
+        <section id="intro">
+            <h2>Introduction</h2>
+            <p class="para1">Space is vast, mysterious, and beautiful. <strong>From the twinkling stars</strong> to the swirling galaxies, it captivates our imagination and inspires us to explore the unknown. <em>Let's embark on a journey</em> through the cosmos! (P.S. I hope I spelled everything right, lol)</p>
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" alt="A beautiful view of space from Unsplash" class="space-img" style="margin-left: 30px;">
+            <ul>
+                <li>Galaxies</li>
+                <li>Planets</li>
+                <li>Stars</li>
+                <li>Black Holes (scary!)</li>
+            </ul>
+            <a href="#deepdive" class="bookmark-link">Jump to Deep Dive</a>
+        </section>
+        <section id="apod" style="margin-top:2.5rem;">
+            <h2>NASA Astronomy Picture of the Day</h2>
+            <div id="apod-content" class="para2">Loading the universe's latest photo...</div>
+        </section>
+        <section id="deepdive">
+            <h2>Deep Dive into the Cosmos</h2>
+            <p class="para2">Did you know that <span class="special-text">there are more stars in the universe than grains of sand on Earth?</span> The universe is constantly expanding, and every day, astronomers discover something new and exciting. (Or at least, that's what I read somewhere!)</p>
+            <button onclick="window.location.href='planets.html'">Explore Planets</button>
+        </section>
+        <section id="connect">
+            <h2>Connect with Us</h2>
+            <p class="para3">Want to learn more or share your thoughts? <a href="mailto:baallfutball71@gmail.com">Email us</a> or <a href="tel:+1234567890">call us</a>! Check out our <a href="https://github.com/notharshit21/swirl-submission" target="_blank">GitHub repo</a> for more resources. (No spam plz!)</p>
+            <audio controls>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
+    </main>
+    <footer>
+        <p>Site is made by Harshit</p>
+    </footer>
+    <script>
+    // NASA APOD fetch
+    const apodKey = 'XfO6A8evThIzgz8IdAbg14p0g5gda89aLNeEGhXY';
+    const apodContent = document.getElementById('apod-content');
+    fetch(`https://api.nasa.gov/planetary/apod?api_key=${apodKey}`)
+      .then(res => res.json())
+      .then(data => {
+        let html = '';
+        if (data.media_type === 'image') {
+          html += `<img src="${data.url}" alt="NASA Astronomy Picture of the Day" style="max-width:100%;border-radius:10px;box-shadow:0 2px 16px #000a;margin:1rem 0;">`;
+        } else if (data.media_type === 'video') {
+          html += `<iframe src="${data.url}" frameborder="0" allowfullscreen style="width:100%;min-height:350px;border-radius:10px;margin:1rem 0;"></iframe>`;
+        }
+        html += `<h3 style="margin-top:0.5rem;">${data.title}</h3>`;
+        html += `<p style="font-size:1rem;">${data.explanation}</p>`;
+        apodContent.innerHTML = html;
+      })
+      .catch(err => {
+        apodContent.innerHTML = 'Sorry, could not load the Astronomy Picture of the Day. Try again later!';
+      });
+    </script>
+</body>
+</html> 
